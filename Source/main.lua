@@ -1,3 +1,12 @@
+--HI MY LOVE <3333 
+
+--THINGS THAT ARE NOW DONE:
+-- I updated the game state machine to run the game loop in the main file. 
+-- I also added a scene manager to help with switching between scenes
+
+-- !!!!!!!!! NEW PROBLEM: the player movement seems to be stuck to move one pixel 
+--	in each direction, not sure how this got messed up when adding the state machine 
+
 import "CoreLibs/graphics";
 import "CoreLibs/sprites";
 import "CoreLibs/timer";
@@ -7,7 +16,7 @@ import "CoreLibs/crank";
 import "bg";
 import "circle";
 import "obj";
-import "sceneManager";
+import "sceneManager"; -- IMPORT SCENEMANAGER SCRIPT 
 
 local pd <const> = playdate;
 local gfx <const> = pd.graphics;
@@ -16,43 +25,24 @@ local vec <const> = gfx.geometry;
 local boolean playerAdded = false;
 
 --Scene Variable to Change Game State 
-scene = {"game","start","end"}
+scene = {"game","start","end"} -- NAMING GAME STATES/ SETTING AS VARS 
 
 TAGS = {
     player = 1,
     obstacle = 2,
 	bg = 3
 }
-
-local itemArray = {}
-	itemArray[0] = "images/enemyShip.png";
-	itemArray[1] = "images/playerShip.png";
-
+ 
 function setup()
-	scene = "game";
-
-	local background = Bg();
-	background:add();
-
-	local item = Obj(100, 100, itemArray[0]);
-	item:add();
-	local item2 = Obj(300, 200, itemArray[1]);
-	item2:add();
+	scene = "game";-- SETTING SCENE TO GAME SCREEN (TEMPORARY)
 end
 
 setup();
 
 function pd.update()
-	gfx.sprite.update();
 	--pd.timer.updateTimers();
-
-	if scene == "game" then 
-		if(not playerAdded) then
-			local player = Circle(100, 100, 75);
-			player:add();
-			playerAdded = true;
-		end
-	end
+	SceneManager:switchScene(scene); -- SWITCHES SCENES AND CLEARS SPRITES
+	gfx.sprite.update();
 end
 
 
