@@ -2,6 +2,8 @@
 local pd <const>  = playdate 
 local gfx <const>  = pd.graphics
 
+playerAdded = false;
+
 SceneManager= {};
 
  class("SceneManager").extends()
@@ -12,19 +14,20 @@ function SceneManager:loadNewScene()
 end 
 
 function SceneManager:switchScene(scene,...)
-    self.newScene = scene
-    self:loadNewScene()
+    
 
     ------------------------
         --GAME SCREEN--
     ------------------------
-    if scene == ("game") then
-        playerAdded = true;
+    if scene == ("game") and not playerAdded then
+
+        self.newScene = scene
+        self:loadNewScene()
        --ADD BACKGROUND 
         local background = Bg();
         background:add();
         --ADD PLAYER
-        local player = Circle(100, 100, 75);
+        player = Circle(100, 100, 75);
         player:add();
     -- ADD OBJECTS
         local itemArray = {}
@@ -34,7 +37,8 @@ function SceneManager:switchScene(scene,...)
         local item = Obj(100, 100, itemArray[0]);
         local item2 = Obj(300, 200, itemArray[1]);
         item:add();
-        item2:add();	
+        item2:add();
+        playerAdded = true;
     end
 end 
 

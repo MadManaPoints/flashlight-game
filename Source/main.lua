@@ -1,11 +1,11 @@
---HI MY LOVE <3333 
+--HELLO MY WONDERFUL GIRLFRIEND!!
 
---THINGS THAT ARE NOW DONE:
--- I updated the game state machine to run the game loop in the main file. 
--- I also added a scene manager to help with switching between scenes
+-- THE SCENEMANAGER IS DOING ITS THING NOW. I HAD TO PUT THE
+-- LOADNEWSCENE FUNCTION INTO THE GAME SCENE CONDITIONAL
+-- AND I GOT THE PLAYER MOVING AGAIN
+-- PUSHING THIS SO WE CAN BOTH KEEP WORKING WITH THE FIX 
 
--- !!!!!!!!! NEW PROBLEM: the player movement seems to be stuck to move one pixel 
---	in each direction, not sure how this got messed up when adding the state machine 
+-- I MISS YOU <333
 
 import "CoreLibs/graphics";
 import "CoreLibs/sprites";
@@ -21,8 +21,6 @@ import "sceneManager"; -- IMPORT SCENEMANAGER SCRIPT
 local pd <const> = playdate;
 local gfx <const> = pd.graphics;
 local vec <const> = gfx.geometry;
-
-local boolean playerAdded = false;
 
 --Scene Variable to Change Game State 
 scene = {"game","start","end"} -- NAMING GAME STATES/ SETTING AS VARS 
