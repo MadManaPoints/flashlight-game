@@ -23,7 +23,6 @@ function Circle:init(x, y, r)
 	self:setTag(TAGS.player);
 end
 
-
 function Circle:update()
 	--Circle.super.update(self);
 	local goalX, goalY = self.x, self.y;
@@ -41,23 +40,26 @@ function Circle:update()
 		goalY += self.speed;
 	end
 
-	local actualX, actualY, collisions, numberOfCollisions = self:moveWithCollisions(goalX, goalY);
+	local X, Y, collisions, numberOfCollisions = self:moveWithCollisions(goalX, goalY);
 	for i = 1, numberOfCollisions do
 		local collision = collisions[i];
 
 		local collidedSprite = collision.other;
 		local collisionTag = collidedSprite:getTag();
 
+		-- if only colliding with background, hovering is false;
 		if collisionTag == TAGS.obstacle then
 			self.hovering = true;
+			if pd.buttonJustPressed(pd.kButtonA) then
+				collidedSprite.held = true;
+			end 
 		elseif collisionTag == TAGS.bg then
 			self.hovering = false;
 		end
 	end
-
-	print(self.hovering);
 end
 
+-- will keep map for now, but we're not using this 
 function Circle:map(value, minA, maxA, minB, maxB)
         local range = maxA - minA;
         local valuePercent = (value - minA) / range;

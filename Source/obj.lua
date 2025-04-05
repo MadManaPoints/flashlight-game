@@ -12,5 +12,19 @@ function Obj:init(x, y, img)
     self:setZIndex(31);
     self:setCollideRect(0, 0, self:getSize());
     self:setTag(TAGS.obstacle);
+    self.held = false;
 end
 
+function Obj:update()
+    if(self.held) then
+        if(not player.hovering) then
+            self.held = false;
+        end
+    end
+
+    if(self.held) then
+        self:setScale(1.5);
+    else
+        self:setScale(1);
+    end
+end
