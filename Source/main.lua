@@ -17,10 +17,15 @@ import "bg";
 import "circle";
 import "obj";
 import "sceneManager"; -- IMPORT SCENEMANAGER SCRIPT 
+import "shelf";
+import "phone";
 
 local pd <const> = playdate;
 local gfx <const> = pd.graphics;
 local vec <const> = gfx.geometry;
+
+offsetX = 0.0;
+offsetY = 0.0;
 
 --Scene Variable to Change Game State 
 scene = {"game","start","end"} -- NAMING GAME STATES/ SETTING AS VARS 

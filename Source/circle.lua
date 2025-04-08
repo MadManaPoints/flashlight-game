@@ -2,6 +2,8 @@ local pd <const> = playdate;
 local gfx <const> = pd.graphics;
 fullRot = false;
 
+local offsetNum = 200.0;
+
 Circle={};
 
 class('Circle').extends(gfx.sprite);
@@ -25,20 +27,30 @@ end
 
 function Circle:update()
 	--Circle.super.update(self);
+	if(pd.isCrankDocked()) then
+		self:setZIndex(-1);
+	else
+		self:setZIndex(30);
+	end
+	
 	local goalX, goalY = self.x, self.y;
 
-	if(pd.buttonIsPressed(pd.kButtonRight) and self.x < 335) then
+	if(pd.buttonIsPressed(pd.kButtonRight) and self.x < 1000) then
 		goalX += self.speed;
 	end
-	if(pd.buttonIsPressed(pd.kButtonLeft) and self.x > 65) then
+	if(pd.buttonIsPressed(pd.kButtonLeft) and self.x > -600) then
 		goalX -= self.speed;
 	end
-	if(pd.buttonIsPressed(pd.kButtonUp) and self.y > 70) then
-		goalY -= self.speed;
+	if(pd.getCrankChange() < 0 and self.y > 70) then
+		goalY -= self.speed / 2;
 	end
-	if(pd.buttonIsPressed(pd.kButtonDown) and self.y < 170) then
-		goalY += self.speed;
+	if(pd.getCrankChange() > 0 and self.y < 170) then
+		goalY += self.speed / 2;
 	end
+	offsetX = -self.x  + offsetNum;
+	gfx.setDrawOffset(offsetX, offsetY);
+
+	
 
 	local X, Y, collisions, numberOfCollisions = self:moveWithCollisions(goalX, goalY);
 	for i = 1, numberOfCollisions do
