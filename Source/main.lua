@@ -24,6 +24,7 @@ local pd <const> = playdate;
 local gfx <const> = pd.graphics;
 local vec <const> = gfx.geometry;
 
+-- global offsets for camera movement (we really only need x)
 offsetX = 0.0;
 offsetY = 0.0;
 

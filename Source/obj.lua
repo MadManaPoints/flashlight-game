@@ -16,6 +16,7 @@ function Obj:init(x, y, img)
 end
 
 function Obj:update()
+    -- used to track whether the sprite should be made bigger
     if(self.held) then
         if(not player.hovering) then
             self.held = false;

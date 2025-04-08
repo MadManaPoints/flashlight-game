@@ -14,6 +14,8 @@ function Phone:init(image)
 end
 
 function Phone:update()
+    -- move phone offscreen when docked
+    -- maybe MAYBE we'll switch to an animation 
     if(pd.isCrankDocked()) then
         self:moveTo(0, -200);
     else

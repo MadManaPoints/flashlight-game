@@ -22,17 +22,23 @@ function Circle:init(x, y, r)
     self.speed = 5.0;
 	self.counter = 0.0;
 	self.hovering = false;
+	self.isOut = false;
 	self:setTag(TAGS.player);
 end
 
 function Circle:update()
 	--Circle.super.update(self);
+
+	--move sprite behind background when docked
 	if(pd.isCrankDocked()) then
 		self:setZIndex(-1);
+		self.isOut = false;
 	else
 		self:setZIndex(30);
+		self.isOut = true;
 	end
-	
+
+	-- floats for position movement
 	local goalX, goalY = self.x, self.y;
 
 	if(pd.buttonIsPressed(pd.kButtonRight) and self.x < 1000) then
@@ -41,17 +47,18 @@ function Circle:update()
 	if(pd.buttonIsPressed(pd.kButtonLeft) and self.x > -600) then
 		goalX -= self.speed;
 	end
-	if(pd.getCrankChange() < 0 and self.y > 70) then
+	if(pd.getCrankChange() < 0 and self.y > 50) then
 		goalY -= self.speed / 2;
 	end
-	if(pd.getCrankChange() > 0 and self.y < 170) then
+	if(pd.getCrankChange() > 0 and self.y < 190) then
 		goalY += self.speed / 2;
 	end
+
+	--moves camera along with player
 	offsetX = -self.x  + offsetNum;
 	gfx.setDrawOffset(offsetX, offsetY);
 
-	
-
+	-- handles individual collisions to check whether player is hovering over object
 	local X, Y, collisions, numberOfCollisions = self:moveWithCollisions(goalX, goalY);
 	for i = 1, numberOfCollisions do
 		local collision = collisions[i];

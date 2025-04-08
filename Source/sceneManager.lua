@@ -2,6 +2,8 @@
 local pd <const>  = playdate 
 local gfx <const>  = pd.graphics
 
+
+-- dictionary to store the strings to pull sprite images
 local dict img = {}
     img["jar"] = "images/Jar.png";
     img["bottle1"] = "images/Bottle1.png";
